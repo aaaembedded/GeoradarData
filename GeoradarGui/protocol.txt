@@ -1,0 +1,34 @@
+
+protocol structure:
+
+header            - 1 byte   = 0x73
+length            - 2 bytes  = command.length + command parameter.length + data_load.length 
+command           - 2 bytes      
+command parameter - 2 bytes
+data_load         - X bytes 
+CRC - 2 bytes = 16bits summ of all packet ( header + length + command + command_parametr + data_load)
+
+Packet example:
+0x73 0x08 0x00 0x23 0x00 0x24 0x00 0x00 0x00 0x00 0x00 0xC2 00
+
+0x73    				header            - 1 byte   = 0x73
+0x08 0x00    			length 			  - 2 bytes  = 0x08
+0x23 0x00    			command           - 2 bytes  = 0x23
+0x24 0x00    			command parameter - 2 bytes  = 0x24
+0x00 0x00 0x00 0x00     data load
+0xC2 00                 CRC               = 0x73 + 0x08 + 0x00 + 0x23 + 0x00 + 0x24 + 0x00 + 0x00 + 0x00 + 0x00 + 0x00 = 0x00C2
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
