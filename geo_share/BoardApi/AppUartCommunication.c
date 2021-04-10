@@ -155,6 +155,7 @@ HAL_StatusTypeDef api_packet_parsing(uint8_t u8_data_out[])
 				board_set_uint32_state(STATIC_DELAY_PARAM, u32_static_delay);
 				board_set_uint32_state(TX_PULSE_WIDTH_PARAM, u32_tx_pulse_width);
 				board_set_uint32_state(SCAN_TIMER_PERIOD_PARAM, u32_tx_pulse_period);
+				board_set_uint32_state(MAXIMUM_SAMPLES_PER_POINT_PARAM, u32_average_points);
 
 				//api_send_data(GEORADAR_SAVE_PARAMETERS_RESPONCE_ID , u16_packet_parameter);
 				AppUartSetResponseID(GEORADAR_SAVE_PARAMETERS_RESPONCE_ID);

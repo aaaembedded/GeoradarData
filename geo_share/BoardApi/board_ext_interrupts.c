@@ -11,6 +11,8 @@
 #include "stm32f429i_discovery_ts.h"
 #include "board_states.h"
 
+#define ADC_INTERNAL_BUFFER_SIZE 8
+
  void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 //	static  uint32_t u32_counter = 0;
@@ -18,8 +20,15 @@
 	 uint32_t u32_current_pulse_number = 0;
 	 uint32_t u32_current_raw_adc_index = 0;
 	 int32_t i32_average_value = 0;
-
 	 int16_t i16_current_adc_value = 0;
+	 uint32_t u32_acquisition_counter = 0;
+
+	 uint32_t u32_acquisition_flag = 0;
+
+
+	 uint32_t u32_adc_average_shift = 0;
+
+
 
     if(GPIO_Pin == GPIO_PIN_3)
     {
@@ -38,8 +47,9 @@
     	// 3) Read current value of ADC:
     	board_ext_adc_one_time_read_sequence(&i16_current_adc_value);
 
-    	// 4) Read saved average value:
+    	// 4) Read  saved average value:
     	board_get_int32_state(ADC_AVERAGE, &i32_average_value);
+
     	// 5) Add current ADC value to average:
     	i32_average_value = i32_average_value + i16_current_adc_value;
 
@@ -49,13 +59,36 @@
     	{
     		if(u32_max_pulse_number > 0)
     		{
-    			i32_average_value = i32_average_value/u32_max_pulse_number;
+    			i32_average_value = -i32_average_value/((int32_t)u32_max_pulse_number);
         		// Write average to current ADC value;
     			board_get_uint32_state(CURRENT_DIP_POINT_PARAM, &u32_current_raw_adc_index);
-    			if(u32_current_raw_adc_index >= 7) // 7 is a sample shift, see AD9226 manual.
+
+    			if(u32_max_pulse_number < ADC_INTERNAL_BUFFER_SIZE)
     			{
-    				board_ext_adc_write_to_raw_average_buffer((int16_t)i32_average_value, u32_current_raw_adc_index - 7);
+    				u32_adc_average_shift = ADC_INTERNAL_BUFFER_SIZE/u32_max_pulse_number;
     			}
+    			else
+    			{
+    				u32_adc_average_shift = 1;
+    			}
+
+    			board_get_uint32_state(ASQUISITION_COUNTER_PARAM, &u32_acquisition_counter);
+    			if(u32_acquisition_counter >= u32_adc_average_shift) // 7 is a sample shift, see AD9226 manual.
+    			{
+    				board_ext_adc_write_to_raw_average_buffer((int16_t)i32_average_value, u32_current_raw_adc_index);
+
+    				u32_current_raw_adc_index++;
+    				// Set number of the next point:
+    				board_set_uint32_state(CURRENT_DIP_POINT_PARAM, u32_current_raw_adc_index);
+    			}
+    			u32_acquisition_counter++;
+    			board_set_uint32_state(ASQUISITION_COUNTER_PARAM, u32_acquisition_counter);
+
+//    			if(u32_current_raw_adc_index >= 7) // 7 is a sample shift, see AD9226 manual.
+//    			{
+//    				board_ext_adc_write_to_raw_average_buffer((int16_t)i32_average_value, u32_current_raw_adc_index - 7);
+//    			}
+
 
     			// Reset average
         		board_set_int32_state(ADC_AVERAGE, 0);
@@ -63,14 +96,16 @@
         		// Reset DATA_ACQUISION_FLAG:
         		board_set_uint32_state(DATA_ACQUISITION_FLAG, 0);
     		}
-    		//
-    		//
     	}
     	else
     	{
         // 6.2) Save current average value to memory:
     		board_set_int32_state(ADC_AVERAGE, i32_average_value);
     	}
+
+
+
+
 
 
 //        HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_RESET);

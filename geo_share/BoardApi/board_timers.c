@@ -9,7 +9,7 @@
 #include "board_timers.h"
 #include "board_states.h"
 
-uint32_t u32_pulse_number = 4;
+uint32_t u32_pulse_number = 3; // TODO: remove 3
 
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;

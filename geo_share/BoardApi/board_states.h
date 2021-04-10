@@ -22,7 +22,7 @@
 
 
 /* UINT32_T: board values: */
-#define MAX_BOARD_UINT32_STATE 			24
+#define MAX_BOARD_UINT32_STATE 			25
 
 #define UINT32_STATE_0		 			0
 #define UINT32_STATE_1		 			1
@@ -50,7 +50,7 @@
 #define STEP_DELAY_PARAM                21
 #define TX_PULSE_WIDTH_PARAM            22
 #define SCAN_TIMER_PERIOD_PARAM         23
-
+#define ASQUISITION_COUNTER_PARAM       24
 
 
 /* DOUBLE: board values: */

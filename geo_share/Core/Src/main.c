@@ -29,6 +29,9 @@
 #include "board_display.h"
 #include "board_delay_line.h"
 
+#include "stdio.h"
+
+
 #include "stmpe811.h"
 #include "stm32f429i_discovery_ts.h"
 #include "board_ts.h"
@@ -873,7 +876,6 @@ void localGRAPHICS_MainTask(void const * argument)
 }
 
 
-
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -905,14 +907,6 @@ void StartDefaultTask(void const * argument)
   uint32_t u32_max_dip_point = 0;
   uint16_t u16_response_id = 0;
   uint32_t u32_start_flag_on = 0;
-
-
-
-
-
-
-
-
 
 
 #define SCREEN_POINTS 240

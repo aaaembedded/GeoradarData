@@ -19,6 +19,8 @@
 #include "board_configuration.h"
 #include "board_timers.h"
 
+
+
 __attribute__((section(".ccmram.i32_adc_full_value"))) int32_t i32_adc_full_value;
 __attribute__((section(".ccmram.i32_adc_average_value"))) int16_t i16_adc_average_value[ADC_ARRAY];
 
@@ -52,7 +54,10 @@ void board_data_start_acquisition(uint32_t u32_max_dip_point)
 		u32_max_dip_point = MAXIMUM_DIP_POINTS;
 		board_set_uint32_state(MAXIMUM_DIP_POINTS_PARAM, u32_max_dip_point);
 	}
-	board_set_uint32_state(MAXIMUM_DIP_POINTS_PARAM, u32_max_dip_point);
+	else
+	{
+		board_set_uint32_state(MAXIMUM_DIP_POINTS_PARAM, u32_max_dip_point);
+	}
 	// 2) Reset current point number
 	board_set_uint32_state(CURRENT_DIP_POINT_PARAM, 0);
 
@@ -60,6 +65,10 @@ void board_data_start_acquisition(uint32_t u32_max_dip_point)
 	board_get_uint32_state(TX_PULSE_WIDTH_PARAM, &u32_tx_pulse_width);
 	board_get_uint32_state(SCAN_TIMER_PERIOD_PARAM, &u32_scan_timer_period);
 	board_tx_pulse_width_set(u32_tx_pulse_width, u32_scan_timer_period);
+
+
+	// 2.7)  Reset of ASQUISITION_COUNTER_PARAM , it will count EXT interrupts in depend of average parameter
+	board_set_uint32_state(ASQUISITION_COUNTER_PARAM, 0);
 
 	// 3) Start "one column of data" acquisition
 	board_data_acquisition();
@@ -89,7 +98,6 @@ void board_data_acquisition()
     // Get samples_per_point value:
     board_get_uint32_state(MAXIMUM_SAMPLES_PER_POINT_PARAM, &u32_samples_per_point);
 
-
     // 2) Start acquisition cycle:
     while(u32_current_dip_point_number < u32_maximum_dip_point)
     {
@@ -111,7 +119,7 @@ void board_data_acquisition()
 		// Wait for acquisition ready:
 		while(1)
 		{
-			board_get_uint32_state(DATA_ACQUISITION_FLAG, &u32_data_acquision_flag);
+		board_get_uint32_state(DATA_ACQUISITION_FLAG, &u32_data_acquision_flag);
 			if(u32_data_acquision_flag == 0)
 			{
 				break;
@@ -121,10 +129,10 @@ void board_data_acquisition()
         // TODO: May be add delay???
 		//HAL_Delay(100);
 	    // Go to the next point:
-		u32_current_dip_point_number++;
+//		u32_current_dip_point_number++;
 
 		// Set number of the next point:
-		board_set_uint32_state(CURRENT_DIP_POINT_PARAM, u32_current_dip_point_number);
+//		board_set_uint32_state(CURRENT_DIP_POINT_PARAM, u32_current_dip_point_number);
     }
 }
 

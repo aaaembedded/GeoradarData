@@ -28,5 +28,5 @@ void board_configuration_init()
 	board_set_uint32_state(START_ON_FLAG_PARAM, 1);
 	board_set_uint32_state(STEP_DELAY_PARAM, 250);
 	board_set_uint32_state(TX_PULSE_WIDTH_PARAM, 15);// it is around 15 * 36nS
-	board_set_uint32_state(SCAN_TIMER_PERIOD_PARAM, 0x7FFF);// 0x7FFF * 36 it is 1.2mS
+	board_set_uint32_state(SCAN_TIMER_PERIOD_PARAM, SCAN_TIMER_DEFAULT_PERIOD);// 0x7FFF * 36 it is 1.2mS
 }

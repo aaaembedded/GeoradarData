@@ -30,5 +30,6 @@
 												*/
 #define DEFAULT_STEP_VALUE_INDEX		14       /* 0-14, see table in board_delay_line.h */
 
+#define SCAN_TIMER_DEFAULT_PERIOD       0x7FFF  // 0x7FFF * 36 it is 1.2mS
 
 #endif /* BOARD_CONFIG_H_ */
