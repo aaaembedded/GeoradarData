@@ -196,7 +196,6 @@ namespace GeoradarGui
             // 
             // nmr_AveragePoints
             // 
-            this.nmr_AveragePoints.Enabled = false;
             this.nmr_AveragePoints.Location = new System.Drawing.Point(9, 101);
             this.nmr_AveragePoints.Maximum = new decimal(new int[] {
             100000,

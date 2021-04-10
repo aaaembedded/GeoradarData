@@ -142,7 +142,7 @@ namespace GeoradarGui
             {
                 for (int y = 0; y < _pointPairList.Count; y++)
                 {
-                    spec_data[GeneratedDataWidth][y] = spec_data[GeneratedDataWidth][y] + _pointPairList[y].X;
+                     spec_data[GeneratedDataWidth][y] = spec_data[GeneratedDataWidth][y] + _pointPairList[y].X;
                 }
                 current_line_counter++;
             }
