@@ -45,6 +45,7 @@ namespace GeoradarGui
         double period_counter = 0;
 
 
+
         public SpectrumForm()
         {
             InitializeComponent();
@@ -89,6 +90,9 @@ namespace GeoradarGui
         private void DataLineGenerate()
         {
             PointPairList _pointPairList = new PointPairList();
+            //PointPair ResultPair = new PointPair(0,0);
+
+
             double tmp = 0;
             // Generate new line of data:
             period_counter++;
@@ -100,9 +104,10 @@ namespace GeoradarGui
                 _pointPairList.Add(_pointPair);
             }
 
-            // send data to main form. It will send it to graph:
             addDataToGraphFormControl(_pointPairList, (double)ScanStepValue);
+            
         }
+
 
         public void addDataLine(PointPairList _pointPairList)
         {

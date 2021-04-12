@@ -67,6 +67,7 @@ namespace GeoradarGui
             this.lblTxPulseWidthValue = new System.Windows.Forms.Label();
             this.lblTxPulsePeriod = new System.Windows.Forms.Label();
             this.nmr_TxPulsePeriod = new System.Windows.Forms.NumericUpDown();
+            this.chkDiffOnOff = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nmr_StaticDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmr_DepthPoints)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmr_ScanStep)).BeginInit();
@@ -293,6 +294,7 @@ namespace GeoradarGui
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.chkDiffOnOff);
             this.groupBox3.Controls.Add(this.chkDielectricPermittivity);
             this.groupBox3.Controls.Add(this.lblDielectricPermittivity);
             this.groupBox3.Controls.Add(this.nmrDielectricPermittivity);
@@ -305,7 +307,7 @@ namespace GeoradarGui
             this.groupBox3.Controls.Add(this.chkFilter);
             this.groupBox3.Location = new System.Drawing.Point(12, 277);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(147, 219);
+            this.groupBox3.Size = new System.Drawing.Size(147, 259);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Post Processing Options";
@@ -313,7 +315,7 @@ namespace GeoradarGui
             // chkDielectricPermittivity
             // 
             this.chkDielectricPermittivity.AutoSize = true;
-            this.chkDielectricPermittivity.Location = new System.Drawing.Point(10, 196);
+            this.chkDielectricPermittivity.Location = new System.Drawing.Point(10, 232);
             this.chkDielectricPermittivity.Name = "chkDielectricPermittivity";
             this.chkDielectricPermittivity.Size = new System.Drawing.Size(96, 17);
             this.chkDielectricPermittivity.TabIndex = 9;
@@ -324,7 +326,7 @@ namespace GeoradarGui
             // lblDielectricPermittivity
             // 
             this.lblDielectricPermittivity.AutoSize = true;
-            this.lblDielectricPermittivity.Location = new System.Drawing.Point(9, 158);
+            this.lblDielectricPermittivity.Location = new System.Drawing.Point(9, 190);
             this.lblDielectricPermittivity.Name = "lblDielectricPermittivity";
             this.lblDielectricPermittivity.Size = new System.Drawing.Size(103, 13);
             this.lblDielectricPermittivity.TabIndex = 8;
@@ -332,7 +334,7 @@ namespace GeoradarGui
             // 
             // nmrDielectricPermittivity
             // 
-            this.nmrDielectricPermittivity.Location = new System.Drawing.Point(9, 173);
+            this.nmrDielectricPermittivity.Location = new System.Drawing.Point(9, 206);
             this.nmrDielectricPermittivity.Minimum = new decimal(new int[] {
             1,
             0,
@@ -474,7 +476,7 @@ namespace GeoradarGui
             // 
             this.groupBox4.Controls.Add(this.cmb_VisualisationMode);
             this.groupBox4.Controls.Add(this.lblTypeOfVisualisationMode);
-            this.groupBox4.Location = new System.Drawing.Point(12, 502);
+            this.groupBox4.Location = new System.Drawing.Point(12, 542);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(147, 65);
             this.groupBox4.TabIndex = 20;
@@ -604,11 +606,22 @@ namespace GeoradarGui
             0});
             this.nmr_TxPulsePeriod.ValueChanged += new System.EventHandler(this.nmr_TxPulsePeriod_ValueChanged);
             // 
+            // chkDiffOnOff
+            // 
+            this.chkDiffOnOff.AutoSize = true;
+            this.chkDiffOnOff.Location = new System.Drawing.Point(10, 159);
+            this.chkDiffOnOff.Name = "chkDiffOnOff";
+            this.chkDiffOnOff.Size = new System.Drawing.Size(78, 17);
+            this.chkDiffOnOff.TabIndex = 10;
+            this.chkDiffOnOff.Text = "Diff On/Off";
+            this.chkDiffOnOff.UseVisualStyleBackColor = true;
+            this.chkDiffOnOff.CheckedChanged += new System.EventHandler(this.chkDiffOnOff_CheckedChanged);
+            // 
             // ControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(255, 581);
+            this.ClientSize = new System.Drawing.Size(255, 619);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.btnLoadParametersFromFile);
             this.Controls.Add(this.btnSaveParametersToFile);
@@ -686,5 +699,6 @@ namespace GeoradarGui
         private System.Windows.Forms.NumericUpDown nmrDielectricPermittivity;
         private System.Windows.Forms.Label lblDielectricPermittivity;
         private System.Windows.Forms.CheckBox chkDielectricPermittivity;
+        private System.Windows.Forms.CheckBox chkDiffOnOff;
     }
 }

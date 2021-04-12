@@ -334,5 +334,17 @@ namespace GeoradarGui.Properties {
                 this["DielectricPermitivity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DiffOnOffState {
+            get {
+                return ((bool)(this["DiffOnOffState"]));
+            }
+            set {
+                this["DiffOnOffState"] = value;
+            }
+        }
     }
 }

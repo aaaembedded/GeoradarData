@@ -37,6 +37,12 @@ namespace GeoradarGui
         private UInt32 timeout_counter = 0;
 
 
+        // Old pait list
+        PointPairList OldPairList = new PointPairList();
+        PointPairList resultPairList = new PointPairList();
+
+
+
         public mainForm()
         {
 
@@ -80,11 +86,17 @@ namespace GeoradarGui
             spectrumForm.SavePictureImage();
         }
 
-        private void AddGraphToSpectrum(PointPairList _pointPairList, double parameret)
+        private void AddGraphToSpectrum(PointPairList _pointPairList, double parameter)
         {
             PointPairList output_pair_list;
             // Remove DC:
             double dc_mean = 0;
+
+            if (controlForm.GetchkDiffOnOffState() == true)
+            {
+                GetPairListDiff(_pointPairList);
+                _pointPairList = resultPairList;
+            }
 
             if (controlForm.GetchkFilterState() == true)
             {
@@ -105,18 +117,51 @@ namespace GeoradarGui
             if (controlForm.GetchkFilterState() == true)
             {
                 InputDataAverageFilter(out output_pair_list, _pointPairList);
-                graphForm.writeOneOrdinateGraph(output_pair_list, (parameret/2) / 1000.0);
+                graphForm.writeOneOrdinateGraph(output_pair_list, (parameter/2) / 1000.0);
                 spectrumForm.addDataLine(_pointPairList);
 
 
             }
             else
             {
-                graphForm.writeOneOrdinateGraph(_pointPairList, (parameret / 2) / 1000.0);
+                graphForm.writeOneOrdinateGraph(_pointPairList, (parameter / 2) / 1000.0);
                 spectrumForm.addDataLine(_pointPairList);
             }
         }
 
+        private void GetPairListDiff(PointPairList inputPairList)
+        {
+            PointPair ResultPair = new PointPair(0, 0);
+
+            if (OldPairList.Count == 0)
+            {
+                for (int i = 0; i < inputPairList.Count; i++)
+                {
+                    OldPairList.Add(inputPairList[i]);
+                }
+            }
+
+            resultPairList.Clear();
+            for (int i = 0; i < inputPairList.Count; i++)
+            {
+                if (i < OldPairList.Count)
+                {
+                    ResultPair.X = inputPairList[i].X - OldPairList[i].X;
+                    ResultPair.Y = inputPairList[i].Y - OldPairList[i].Y;
+                    resultPairList.Add(ResultPair);
+                }
+                else
+                {
+                    resultPairList.Add(inputPairList[i]);
+                }
+            }
+
+            OldPairList.Clear();
+            for (int i = 0; i < inputPairList.Count; i++)
+            {
+                OldPairList.Add(inputPairList[i]);
+            }
+        }
 
 
         private void updateControlVariables()

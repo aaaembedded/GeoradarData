@@ -174,6 +174,12 @@ namespace GeoradarGui
             return (bool)chkFilter.Checked; 
         }
 
+        public bool GetchkDiffOnOffState()
+        {
+            return (bool) chkDiffOnOff.Checked;
+        }
+        
+
         public int GetDielectricPermittivity()
         {
             return (int)nmrDielectricPermittivity.Value;
@@ -302,6 +308,12 @@ namespace GeoradarGui
         private void nmrDielectricPermittivity_ValueChanged(object sender, EventArgs e)
         {
             settings.DielectricPermitivity = (int)nmrDielectricPermittivity.Value;
+            updateControlVariables();
+        }
+
+        private void chkDiffOnOff_CheckedChanged(object sender, EventArgs e)
+        {
+            settings.DiffOnOffState = chkDiffOnOff.Checked;
             updateControlVariables();
         }
     }
